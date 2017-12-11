@@ -1,7 +1,7 @@
 import { action, observable } from "mobx";
 
-export const width = 20;
-export const height = 20;
+export const width = 15;
+export const height = 15;
 const direction = "right";
 
 export default class Game {
@@ -31,10 +31,14 @@ export default class Game {
 
   @action
   randomFruit() {
-    this.fruit = {
-      x: Math.floor(Math.random() * width),
-      y: Math.floor(Math.random() * height)
-    };
+    let newx = Math.floor(Math.random() * width);
+    let newy = Math.floor(Math.random() * height);
+
+    while(this.collide(newx, newy)){
+        newx = Math.floor(Math.random() * width);
+        newy = Math.floor(Math.random() * height);
+    }
+    this.fruit = {x: newx, y: newy};
   }
 
   @action
