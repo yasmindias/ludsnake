@@ -33,5 +33,7 @@ $size: 750px;
 
   .SnakePiece {
     margin: 5px;
+    filter: invert(1);
+    opacity: .5;
   }
 }

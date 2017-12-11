@@ -19,6 +19,14 @@ export default class Game {
     this.direction = direction;
     this.randomFruit();
     this.isDead = false;
+
+    this.startTimer();
+  }
+
+  @action
+  startTimer() {
+    if (this.timeout) window.clearTimeout(this.timeout);
+    this.timeout = window.setTimeout(this.move, 500);
   }
 
   @action
@@ -36,9 +44,10 @@ export default class Game {
     this.randomFruit();
   }
 
-  @action
+  @action.bound
   move() {
     if (this.isDead) return;
+    this.startTimer();
 
     let newX = this.getNewX();
     let newY = this.getNewY();
