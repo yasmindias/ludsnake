@@ -25,8 +25,13 @@ $size: 750px;
   }
 
   .SnakeHead {
+    z-index: 2;
     width: 50px;
     margin-left: -4px;
     margin-top: -4px;
+  }
+
+  .SnakePiece {
+    margin: 5px;
   }
 }

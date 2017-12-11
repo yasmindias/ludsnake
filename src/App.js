@@ -33,8 +33,6 @@ export default class App extends Component {
   }
 
   render() {
-    console.log("rendering");
-
     return (
       <div className="App">
         <Grid />

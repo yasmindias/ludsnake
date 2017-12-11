@@ -11,7 +11,7 @@ export default class Snake extends Component {
 
     return (
       <div className="Snake">
-        <SnakeHead pos={game.head} />
+        <SnakeHead pos={game.head} direction={game.direction} />
 
         {game.tail.map(piece => <SnakePiece key={`${piece.x}/${piece.y}`} pos={piece} />)}
       </div>

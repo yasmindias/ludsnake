@@ -55,18 +55,17 @@ export default class Game {
         this.tail.unshift(piece);
       }
 
-      console.log(newX, newY);
       this.head.x = newX;
       this.head.y = newY;
     }
   }
 
   outOfBounds(newX, newY) {
-    return newX > width || newY > height || newX < 0 || newY < 0;
+    return newX >= width || newY >= height || newX < 0 || newY < 0;
   }
 
   collide(x, y) {
-    this.tail.find(piece => {
+    return this.tail.find(piece => {
       return piece.x === x && piece.y === y;
     });
   }
@@ -74,6 +73,7 @@ export default class Game {
   @action
   die() {
     this.isDead = true;
+    alert("morreu");
   }
 
   getNewX() {
