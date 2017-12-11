@@ -1,28 +1,29 @@
+$size: 750px;
+
 .App {
-  text-align: center;
+  width: $size;
+  height: $size;
+  position: relative;
+  margin: 0 auto;
+  border: 1px solid #333;
+  margin-top: 3rem;
 
-  &-logo {
-    animation: App-logo-spin infinite 20s linear;
-    height: 80px;
+  .Snake, .Fruit {
+    top: 0;
+    left: 0;
+    position: absolute;
   }
-}
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
+  .Fruit {
+    width: 30px;
+    margin: 4px;
+  }
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  .SnakeHead {
+    $size: 50px;
+    width: $size;
+    height: $size;
+    margin-left: -4px;
+    margin-top: -4px;
+  }
 }

@@ -1,8 +1,15 @@
-const width = 5;
-const height = 5;
+import { action, observable } from "mobx";
+
+export const width = 20;
+export const height = 20;
 const direction = "right";
 
 export default class Game {
+  @observable tail;
+  @observable head;
+  @observable isDead;
+  @observable fruit;
+
   constructor() {
     this.tail = [];
     this.head = {
@@ -14,6 +21,7 @@ export default class Game {
     this.isDead = false;
   }
 
+  @action
   randomFruit() {
     this.fruit = {
       x: Math.floor(Math.random() * width),
@@ -21,12 +29,14 @@ export default class Game {
     };
   }
 
+  @action
   eat() {
     let piece = { x: this.head.x, y: this.head.y };
     this.tail.unshift(piece);
     this.randomFruit();
   }
 
+  @action
   move() {
     if (this.isDead) return;
 
@@ -36,7 +46,7 @@ export default class Game {
     if (this.outOfBounds(newX, newY) || this.collide(newX, newY)) {
       this.die();
     } else {
-      if (this.fruit.x == newX && this.fruit.y == newY) {
+      if (this.fruit.x === newX && this.fruit.y === newY) {
         this.eat();
       } else {
         let piece = this.tail.pop();
@@ -56,23 +66,24 @@ export default class Game {
 
   collide(x, y) {
     this.tail.find(piece => {
-      return piece.x == x && piece.y == y;
+      return piece.x === x && piece.y === y;
     });
   }
 
+  @action
   die() {
     this.isDead = true;
   }
 
   getNewX() {
-    if (this.direction == "left") return this.head.x - 1;
-    if (this.direction == "right") return this.head.x + 1;
+    if (this.direction === "left") return this.head.x - 1;
+    if (this.direction === "right") return this.head.x + 1;
     return this.head.x;
   }
 
   getNewY() {
-    if (this.direction == "up") return this.head.y - 1;
-    if (this.direction == "down") return this.head.y + 1;
+    if (this.direction === "up") return this.head.y - 1;
+    if (this.direction === "down") return this.head.y + 1;
     return this.head.y;
   }
 

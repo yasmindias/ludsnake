@@ -1,0 +1,22 @@
+$grid-size: 2px;
+
+.Grid {
+  position: relative;
+  background: black;
+  height: 100%;
+
+  &__row, &__column {
+    position: absolute;
+    background: #111;
+  }
+
+  &__row {
+    height: $grid-size;
+    width: 100%;
+  }
+
+  &__column {
+    width: $grid-size;
+    height: 100%;
+  }
+}
