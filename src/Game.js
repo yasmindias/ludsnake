@@ -82,7 +82,7 @@ export default class Game {
   @action
   die() {
     this.isDead = true;
-    alert("morreu");
+    alert("MEOOOW!");
   }
 
   getNewX() {
