@@ -11,11 +11,11 @@ export default class Game {
   @observable fruit;
 
   constructor() {
-    this.tail = [];
-    this.head = {
-      x: Math.floor(width / 2),
-      y: Math.floor(height / 2)
-    };
+    const x = Math.floor(width / 2);
+    const y = Math.floor(height / 2);
+
+    this.tail = [{ x, y }];
+    this.head = { x, y };
     this.direction = direction;
     this.randomFruit();
     this.isDead = false;
@@ -55,6 +55,7 @@ export default class Game {
         this.tail.unshift(piece);
       }
 
+      console.log(newX, newY);
       this.head.x = newX;
       this.head.y = newY;
     }
@@ -114,12 +115,10 @@ export default class Game {
     let x = ["left", "right"];
     let y = ["up", "down"];
 
-    if (
-      (x.contains(direction) && x.contains(this.direction)) ||
-      (y.contains(direction) && y.contains(this.direction))
-    ) {
-      return false;
-    }
-    return true;
+    if (direction === this.direction) return true;
+
+    const oppositeX = x.includes(direction) && x.includes(this.direction);
+    const oppositeY = y.includes(direction) && y.includes(this.direction);
+    return !(oppositeX || oppositeY);
   }
 }

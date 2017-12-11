@@ -1,8 +1,10 @@
+import { observer } from "mobx-react";
 import React, { Component } from "react";
 import { width, height } from "Game";
 
 import "./Grid.scss";
 
+@observer
 export default class Grid extends Component {
   render() {
     return (
@@ -20,7 +22,6 @@ export default class Grid extends Component {
       const style = {
         top: `${i * 100 / height}%`
       };
-      console.log(style);
 
       columns.push(<div key={i} className="Grid__row" style={style} />);
     }

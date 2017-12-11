@@ -1,3 +1,5 @@
+import { observer } from "mobx-react";
+import { observable } from "mobx";
 import React, { Component } from "react";
 
 import Game from "./Game";
@@ -15,11 +17,12 @@ const keys = {
   DOWN: 40
 };
 
+@observer
 export default class App extends Component {
-  game = new Game();
+  @observable game = new Game();
 
   componentDidMount() {
-    window.addEventListener("onkeydown", event => {
+    window.addEventListener("keydown", event => {
       const keyCode = event.keyCode || event.which;
 
       if (keyCode === keys.LEFT) this.game.turnLeft();
@@ -30,6 +33,8 @@ export default class App extends Component {
   }
 
   render() {
+    console.log("rendering");
+
     return (
       <div className="App">
         <Grid />

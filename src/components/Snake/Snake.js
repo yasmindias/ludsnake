@@ -1,7 +1,10 @@
+import { observer } from "mobx-react";
 import React, { Component } from "react";
+
 import SnakePiece from "components/SnakePiece";
 import SnakeHead from "components/SnakeHead";
 
+@observer
 export default class Snake extends Component {
   render() {
     const game = this.props.game;
@@ -10,7 +13,7 @@ export default class Snake extends Component {
       <div className="Snake">
         <SnakeHead pos={game.head} />
 
-        {game.tail.map(piece => <SnakePiece pos={piece} />)}
+        {game.tail.map(piece => <SnakePiece key={`${piece.x}/${piece.y}`} pos={piece} />)}
       </div>
     );
   }
