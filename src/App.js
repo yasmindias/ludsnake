@@ -1,4 +1,4 @@
-import { observer } from "mobx-react";
+import { observer } from "mobx-react/custom";
 import { observable } from "mobx";
 import React, { Component } from "react";
 
