@@ -1,6 +1,6 @@
 // @flow
 
-import Game from "./Game";
+import Game, { width, height } from "./Game";
 
 describe("Game", () => {
   let game: Game;
@@ -57,6 +57,28 @@ describe("Game", () => {
 
     it("does not collide outside of head and tail", () => {
       expect(game.collide(6, 9)).toBeFalsy();
+    });
+  });
+
+  describe("#outOfBounds", () => {
+    beforeAll(() => {
+      game = new Game();
+    });
+
+    it("is out of bounds to the left", () => {
+      expect(game.outOfBounds(-1, 0)).toBeTruthy();
+    });
+
+    it("is out of bounds to the top", () => {
+      expect(game.outOfBounds(0, -1)).toBeTruthy();
+    });
+
+    it("is out of bounds to the right", () => {
+      expect(game.outOfBounds(width, 0)).toBeTruthy();
+    });
+
+    it("is out of bounds to the bottom", () => {
+      expect(game.outOfBounds(0, height)).toBeTruthy();
     });
   });
 });
