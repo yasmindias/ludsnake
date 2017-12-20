@@ -23,7 +23,6 @@ export default class Game {
     this.startTimer();
   }
 
-  @action
   startTimer() {
     if (this.timeout) window.clearTimeout(this.timeout);
     this.timeout = window.setTimeout(this.move, 500);
@@ -31,14 +30,15 @@ export default class Game {
 
   @action
   randomFruit() {
-    let newx = Math.floor(Math.random() * width);
-    let newy = Math.floor(Math.random() * height);
+    while (true) {
+      const newX = Math.floor(Math.random() * width);
+      const newY = Math.floor(Math.random() * height);
 
-    while(this.collide(newx, newy)){
-        newx = Math.floor(Math.random() * width);
-        newy = Math.floor(Math.random() * height);
+      if (!this.collide(newX, newY)) {
+        this.fruit = { x: newX, y: newY };
+        break;
+      }
     }
-    this.fruit = {x: newx, y: newy};
   }
 
   @action
@@ -78,6 +78,8 @@ export default class Game {
   }
 
   collide(x, y) {
+    if (this.head.x === x && this.head.y === y) return true;
+
     return this.tail.find(piece => {
       return piece.x === x && piece.y === y;
     });
