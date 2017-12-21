@@ -1,14 +1,24 @@
+// @flow
+
 import { action, observable } from "mobx";
 
 export const width = 15;
 export const height = 15;
 const direction = "right";
 
+type Pos = {
+  x: number,
+  y: number
+};
+
+type Direction = "left" | "right" | "up" | "down";
+
 export default class Game {
-  @observable tail;
-  @observable head;
-  @observable isDead;
-  @observable fruit;
+  @observable tail: Pos[];
+  @observable head: Pos;
+  @observable fruit: boolean;
+  @observable isDead: boolean = false;
+  @observable direction: Direction;
 
   constructor() {
     const x = Math.floor(width / 2);
@@ -18,7 +28,6 @@ export default class Game {
     this.head = { x, y };
     this.direction = direction;
     this.randomFruit();
-    this.isDead = false;
 
     this.startTimer();
   }
@@ -43,8 +52,8 @@ export default class Game {
 
   @action
   eat() {
-    let piece = { x: this.head.x, y: this.head.y };
-    this.tail.unshift(piece);
+    const piece = { x: this.head.x, y: this.head.y };
+    this.tail.push(piece);
     this.randomFruit();
   }
 
@@ -61,15 +70,22 @@ export default class Game {
     } else {
       if (this.fruit.x === newX && this.fruit.y === newY) {
         this.eat();
-      } else {
-        let piece = this.tail.pop();
-        piece.x = this.head.x;
-        piece.y = this.head.y;
-        this.tail.unshift(piece);
       }
+      this.moveTail();
 
       this.head.x = newX;
       this.head.y = newY;
+    }
+  }
+
+  @action
+  moveTail() {
+    for (let i = this.tail.length - 1; i >= 0; i--) {
+      const piece = this.tail[i];
+
+      const { x, y } = i > 0 ? this.tail[i - 1] : this.head;
+      piece.x = x;
+      piece.y = y;
     }
   }
 
