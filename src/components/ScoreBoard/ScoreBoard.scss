@@ -1,0 +1,26 @@
+.ScoreBoard {
+  position: fixed;
+  right: 3rem;
+  top: 3rem;
+  color: white;
+  width: 8rem;
+  background: rgba(white, .25);
+  padding: 1rem;
+  border-radius: .25rem;
+
+  &__level {
+    font-weight: 300;
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
+  }
+
+  &__score {
+    &__header {
+      font-weight: 300;
+    }
+
+    &__value {
+      color: lightpink;
+    }
+  }
+}

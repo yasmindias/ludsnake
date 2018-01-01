@@ -7,6 +7,7 @@ import Game from "./Game";
 import Grid from "components/Grid";
 import Snake from "components/Snake";
 import Fruit from "components/Fruit";
+import ScoreBoard from "components/ScoreBoard";
 
 import "./App.scss";
 
@@ -38,6 +39,7 @@ export default class App extends Component {
         <Grid />
         <Snake game={this.game} />
         <Fruit pos={this.game.fruit} />
+        <ScoreBoard game={this.game} />
       </div>
     );
   }

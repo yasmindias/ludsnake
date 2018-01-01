@@ -1,12 +1,14 @@
 // @flow
 
-import { action, observable } from "mobx";
+import { action, computed, observable } from "mobx";
 
 export const width = 15;
 export const height = 15;
 const direction = "right";
+const maxLevel = 10;
+const speedBase = 400;
 
-type Pos = {
+export type Pos = {
   x: number,
   y: number
 };
@@ -19,6 +21,7 @@ export default class Game {
   @observable fruit: boolean;
   @observable isDead: boolean = false;
   @observable direction: Direction;
+  @observable score: number = 0;
 
   constructor() {
     const x = Math.floor(width / 2);
@@ -28,13 +31,21 @@ export default class Game {
     this.head = { x, y };
     this.direction = direction;
     this.randomFruit();
+  }
 
-    this.startTimer();
+  @computed
+  get level(): number {
+    return Math.min(Math.floor(this.tail.length / 10), maxLevel);
+  }
+
+  @computed
+  get speed(): number {
+    return Math.max(100, speedBase - this.level * (speedBase / (maxLevel + 1)));
   }
 
   startTimer() {
     if (this.timeout) window.clearTimeout(this.timeout);
-    this.timeout = window.setTimeout(this.move, 500);
+    this.timeout = window.setTimeout(this.move, this.speed);
   }
 
   @action
@@ -55,6 +66,7 @@ export default class Game {
     const piece = { x: this.head.x, y: this.head.y };
     this.tail.push(piece);
     this.randomFruit();
+    this.score += (this.level + 1) * 10;
   }
 
   @action.bound

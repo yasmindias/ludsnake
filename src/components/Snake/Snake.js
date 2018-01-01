@@ -11,9 +11,9 @@ export default class Snake extends Component {
 
     return (
       <div className="Snake">
-        <SnakeHead pos={game.head} direction={game.direction} />
+        <SnakeHead pos={game.head} direction={game.direction} speed={game.speed} />
 
-        {game.tail.map((piece, index) => <SnakePiece key={index} pos={piece} />)}
+        {game.tail.map((piece, index) => <SnakePiece key={index} pos={piece} speed={game.speed} />)}
       </div>
     );
   }

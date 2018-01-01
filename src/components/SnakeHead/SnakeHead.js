@@ -2,12 +2,19 @@ import { observer } from "mobx-react";
 import React, { Component } from "react";
 
 import { width, height } from "Game";
+import type { Pos } from "Game";
 
 import head from "./head.png";
 import "./SnakeHead.scss";
 
+type Props = {
+  speed: number,
+  pos: Pos,
+  direction: string
+};
+
 @observer
-export default class SnakeHead extends Component {
+export default class SnakeHead extends Component<Props> {
   get angle() {
     const direction = this.props.direction;
 
@@ -20,11 +27,13 @@ export default class SnakeHead extends Component {
 
   render() {
     const pos = this.props.pos;
+    const speed = this.props.speed;
 
     const style = {
       left: `${pos.x * 100 / width}%`,
       top: `${pos.y * 100 / height}%`,
-      transform: `rotate(${this.angle}deg)`
+      transform: `rotate(${this.angle}deg)`,
+      transition: `${speed}ms all linear`
     };
 
     return <img src={head} className="SnakeHead" style={style} alt="" />;

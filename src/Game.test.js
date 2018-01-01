@@ -30,10 +30,6 @@ describe("Game", () => {
       expect(game.fruit.y).not.toBeNull();
     });
 
-    it("starts the timer", () => {
-      expect(game.timeout).toBeTruthy();
-    });
-
     it("defines that it is not dead", () => {
       expect(game.isDead).toBeFalsy();
     });
